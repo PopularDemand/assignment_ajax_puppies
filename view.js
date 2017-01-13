@@ -22,34 +22,20 @@ PUPPIES.view = (function(){
   };
 
   var refreshList = function(list) {
-    var parsedList = _parseList(list);
     for (var i = 0; i < list.length; i++) {
       var puppy = list[i];
       var $li = $("<li>");
       var name = $("<strong>").text(puppy.name);
-      var breed = "(" + puppy.breed + "), ";
+      var breed = "(" + puppy.breed.name + "), ";
+      var timestamp = $("<span>").html(puppy.created_at + " ")
       var adoptLink = $("<a>").text("adopt");
-      $li.html(name + breed + puppy.createdAgo + "--" + adoptLink);
+      $li.append(name)
+         .append(breed)
+         .append(timestamp)
+         .append(adoptLink);
 
       _$puppyList.prepend($li);
     }
-  };
-
-  var _parseList = function(list) {
-    return list.map(function(puppy) {
-      return {
-        name: puppy.name,
-        createdAgo: _minutesAgo(puppy.created_at),
-        breed: puppy.breed.name
-      };
-    });
-  };
-
-  var _minutesAgo = function(timeString) {
-    var createdDate = new Date(timeString);
-    var currentDate = new Date();
-    var result = currentDate - createdDate / 60000;
-    return "created " + result + " minutes ago ";
   };
 
   var _$refreshButton,

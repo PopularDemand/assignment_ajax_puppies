@@ -5,14 +5,6 @@ PUPPIES.model = (function(){
 
   var list;
 
-  var getList = function() {
-    if (list) {
-      return $.Deferred().resolve( list );
-    } else {
-      return refreshList();
-    }
-  };
-
   var refreshList = function(e) {
     return $.ajax({
       method: "GET",
@@ -27,7 +19,6 @@ PUPPIES.model = (function(){
   };
 
   return {
-    getList: getList,
     refreshList: refreshList
   };
 
