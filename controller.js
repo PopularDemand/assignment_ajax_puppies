@@ -5,8 +5,11 @@ PUPPIES.controller = (function(model, view){
 
   var refreshList = function(e) {
     e.preventDefault();
-    var list = model.getList();
-    view.refreshList(list);
+    // TODO
+    var listPromise = model.refreshList();
+    listPromise.done(function(){
+      view.refreshList(model.list);
+    });
   };
 
   var callbacks = {

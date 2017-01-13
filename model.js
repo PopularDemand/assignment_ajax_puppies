@@ -6,12 +6,16 @@ PUPPIES.model = (function(){
   var list;
 
   var getList = function() {
-    _refreshList();
-    return list;
+    // TODO
+    if (list) {
+      return $.Deferred().resolve(list);
+    } else {
+      return refreshList();
+    }
   };
 
-  var _refreshList = function(e) {
-    $.ajax({
+  var refreshList = function(e) {
+    return $.ajax({
       method: "GET",
       url: "https://ajax-puppies.herokuapp.com/puppies.json",
       async: true,
@@ -22,14 +26,13 @@ PUPPIES.model = (function(){
 
   var _refreshListSuccess = function(response) {
     var response = response;
-    var parsedResponse = response.map(function(puppy) {
+    list = response.map(function(puppy) {
       return {
         name: puppy.name,
         createdAgo: _minutesAgo(puppy.created_at),
         breed: puppy.breed.name
       };
     });
-    return parsedResponse;
   };
 
   var _refreshListError = function(e) {
@@ -37,14 +40,15 @@ PUPPIES.model = (function(){
   };
 
   var _minutesAgo = function(timeString) {
-// TODO
-    var createdDate = new Date(timeSTring);
+    var createdDate = new Date(timeString);
     var currentDate = new Date();
-    var result = currentDate - createdDate;
+    var result = currentDate - createdDate / 3600;
+    return "created " + result + " minutes ago ";
   };
 
   return {
-    getList: getList
+    getList: getList,
+    refreshList: refreshList
   };
 
 }());
