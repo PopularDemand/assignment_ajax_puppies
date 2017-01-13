@@ -18,7 +18,7 @@ PUPPIES.view = (function(){
 
   var refreshList = function(list) {
     // TODO parse list object into lis
-  }
+  };
 
   var _$refreshButton;
 
@@ -26,4 +26,5 @@ PUPPIES.view = (function(){
     init: init,
     refreshList: refreshList
   };
+
 }());
