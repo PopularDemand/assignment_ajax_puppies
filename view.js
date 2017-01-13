@@ -5,6 +5,7 @@ PUPPIES.view = (function(){
 
   var init = function vInit(callbacks) {
     _findEventSources();
+    _findDynamicElements();
     _addEventListeners(callbacks);
   };
 
@@ -21,6 +22,7 @@ PUPPIES.view = (function(){
   };
 
   var refreshList = function(list) {
+    console.log('list in view', list)
     for (var i = 0; i < list.length; i++) {
       var puppy = list[i];
       var $li = $("<li>");

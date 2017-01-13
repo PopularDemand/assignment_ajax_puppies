@@ -6,9 +6,8 @@ PUPPIES.model = (function(){
   var list;
 
   var getList = function() {
-    // TODO
     if (list) {
-      return $.Deferred().resolve(list);
+      return $.Deferred().resolve( list );
     } else {
       return refreshList();
     }
@@ -33,6 +32,7 @@ PUPPIES.model = (function(){
         breed: puppy.breed.name
       };
     });
+    console.log(list)
   };
 
   var _refreshListError = function(e) {
