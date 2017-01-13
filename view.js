@@ -1,5 +1,5 @@
 
-var PUPPIES || {};
+var PUPPIES = PUPPIES || {};
 
 PUPPIES.view = (function(){
 
@@ -16,9 +16,14 @@ PUPPIES.view = (function(){
     _$refreshButton.on("click", callbacks.refreshList);
   };
 
+  var refreshList = function(list) {
+    // TODO parse list object into lis
+  }
+
   var _$refreshButton;
 
   return {
-    init: init
+    init: init,
+    refreshList: refreshList
   };
 }());

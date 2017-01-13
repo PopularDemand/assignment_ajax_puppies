@@ -1,13 +1,9 @@
 
-var PUPPIES || {};
+var PUPPIES = PUPPIES || {};
 
 PUPPIES.model = (function(){
 
   var list;
-
-  var refreshListSuccess = function(e) {
-    list = JSON.parse(this.responseText);
-  };
 
   var refreshList = function(e) {
     e.preventDefault();
@@ -16,13 +12,36 @@ PUPPIES.model = (function(){
       url: "https://ajax-puppies.herokuapp.com/puppies.json",
       async: true,
       success: refreshListSuccess,
-      // TODO
-        complete: ,
-        error:
+      error: refreshListError
     });
   };
 
+  var refreshListSuccess = function(e) {
+    var response = this.responseJSON;
+    var parsedResponse = response.map(function(puppy) {
+      return {
+        name: puppy.name,
+        createdAgo: minutesAgo(puppy.created_at),
+        breed: puppy.breed.name
+      }
+    })
+  };
+
+  var refreshListError = function(e) {
+    list = [];
+  }
+
+  var getList = function() {
+    return list;
+  }
+
+  var _minutesAgo(timeString) {
+    // TODO 
+    // new Date(timeSTring)
+  }
+
   return {
-    refreshList: refreshList
+    refreshList: refreshList,
+    getList: getList
   };
 }());
