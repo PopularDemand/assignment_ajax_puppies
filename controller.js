@@ -6,7 +6,7 @@ PUPPIES.controller = (function(model, view){
   var refreshList = function(e) {
     e.preventDefault();
     var listPromise = model.refreshList();
-    listPromise.done( view.refreshList );
+    listPromise.done(view.refreshList);
   };
 
   var callbacks = {
@@ -20,4 +20,5 @@ PUPPIES.controller = (function(model, view){
   return {
     init: init
   };
+
 }(PUPPIES.model, PUPPIES.view));

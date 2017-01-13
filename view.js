@@ -22,7 +22,7 @@ PUPPIES.view = (function(){
   };
 
   var refreshList = function(list) {
-    console.log('list in view', list)
+    var parsedList = _parseList(list);
     for (var i = 0; i < list.length; i++) {
       var puppy = list[i];
       var $li = $("<li>");
@@ -35,8 +35,25 @@ PUPPIES.view = (function(){
     }
   };
 
+  var _parseList = function(list) {
+    return list.map(function(puppy) {
+      return {
+        name: puppy.name,
+        createdAgo: _minutesAgo(puppy.created_at),
+        breed: puppy.breed.name
+      };
+    });
+  };
+
+  var _minutesAgo = function(timeString) {
+    var createdDate = new Date(timeString);
+    var currentDate = new Date();
+    var result = currentDate - createdDate / 60000;
+    return "created " + result + " minutes ago ";
+  };
+
   var _$refreshButton,
-      _$puppyList;
+    _$puppyList;
 
   return {
     init: init,
