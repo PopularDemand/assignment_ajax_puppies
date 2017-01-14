@@ -11,6 +11,7 @@ PUPPIES.view = (function(){
 
   var _findEventSources = function() {
     _$refreshButton = $("#refresh-list");
+    _$newPuppyForm = $("#new-puppy");
   };
 
   var _findDynamicElements = function() {
@@ -19,6 +20,7 @@ PUPPIES.view = (function(){
 
   var _addEventListeners = function(callbacks) {
     _$refreshButton.on("click", callbacks.refreshList);
+    _$newPuppyForm.on("submit", callbacks.submitForm)
   };
 
   var refreshList = function(list) {
@@ -38,8 +40,13 @@ PUPPIES.view = (function(){
     }
   };
 
+  var serializeForm = function() {
+    return _$newPuppyForm.serializeArray();
+  }
+
   var _$refreshButton,
-    _$puppyList;
+      _$puppyList,
+      _$newPuppyForm;
 
   return {
     init: init,
