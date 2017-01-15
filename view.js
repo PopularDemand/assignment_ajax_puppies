@@ -1,4 +1,3 @@
-
 var PUPPIES = PUPPIES || {};
 
 PUPPIES.view = (function(){
@@ -20,17 +19,22 @@ PUPPIES.view = (function(){
 
   var _addEventListeners = function(callbacks) {
     _$refreshButton.on("click", callbacks.refreshList);
-    _$newPuppyForm.on("submit", callbacks.submitForm)
+    _$newPuppyForm.on("submit", callbacks.submitForm);
+    _$puppyList.on("click", ".adopt-link", callbacks.adoptPuppy)
   };
 
   var refreshList = function(list) {
+    _$puppyList.html("")
     for (var i = 0; i < list.length; i++) {
       var puppy = list[i];
       var $li = $("<li>");
       var name = $("<strong>").text(puppy.name);
-      var breed = "(" + puppy.breed.name + "), ";
-      var timestamp = $("<span>").html(puppy.created_at + " ")
-      var adoptLink = $("<a>").text("adopt");
+      var breed = "(" + puppy.breed + "), ";
+      var timestamp = $("<span>").html(puppy.createdAgo + " ")
+      var adoptLink = $("<a>")
+                      .text("adopt")
+                      .attr({"data-id": puppy.id, 'href': '#'})
+                      .addClass("adopt-link");
       $li.append(name)
          .append(breed)
          .append(timestamp)
@@ -46,11 +50,13 @@ PUPPIES.view = (function(){
 
   var _$refreshButton,
       _$puppyList,
-      _$newPuppyForm;
+      _$newPuppyForm,
+      _$adoptionLinks;
 
   return {
     init: init,
-    refreshList: refreshList
+    refreshList: refreshList,
+    serializeForm: serializeForm
   };
 
 }());
